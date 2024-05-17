@@ -1,26 +1,41 @@
-import React from 'react'
+import React from 'react';
+import useConversation from '../../zustand/useConversation';
+import { useSocketContext } from '../../context/SocketContext';
 
-const Conversation = () => {
-  return <>
-  <div className='flex gap-2 items-center hover:bg-purple-400 rounded p-2 py-1 cursor-pointer'>
-    <div className='avatar online'>
-        <div className='w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
-            <img src='https://cdn2.iconfinder.com/data/icons/user-interface-line-38/24/Untitled-5-19-128.png' alt='use avatar'/>
-        </div>
-    </div>
+const Conversation = ({ conversation, lastIdx, emoji }) => {
+  const {selectedConversation, setSelectedConversation} = useConversation();
 
-    <div className='flex flex-col flex-1'>
-        <div className='flex gap-3 justify-between'>
-            <p className='font-bold text-gray-200'>John Marston</p>
-            <span className='text-xl'>🤠</span>
+  const isSelected = selectedConversation?._id === conversation._id;
+  const {onlineUsers} = useSocketContext();
+  const isOnline = onlineUsers.includes(conversation._id)
+  
+  return (
+    <>
+      <div className={`flex gap-2 items-center hover:bg-purple-400 rounded p-2 py-1 cursor-pointer
+        ${isSelected ? "bg-purple-400" : ""}
+      `}
+        onClick={() => setSelectedConversation(conversation)}
+      >
+        <div className={`avatar ${isOnline ? "online" : ""}`}>
+          <div className='w-12 h-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2'>
+            <img src={conversation.profilePic} alt='user avatar'/>
+          </div>
         </div>
-    </div>
-  </div>
-  <div className='divider my-0 py-0 h-1'/>
-  </>
+
+        <div className='flex flex-col flex-1'>
+          <div className='flex gap-3 justify-between'>
+            <p className='font-bold text-gray-200'>{conversation.fullName}</p>
+            <span className='text-xl'>{emoji}</span>
+          </div>
+        </div>
+      </div>
+      {!lastIdx && <div className='divider my-0 py-0 h-1'/>}
+    </>
+  );
 }
 
-export default Conversation
+export default Conversation;
+
 
 
 //STARTER CODE FOR THIS 
