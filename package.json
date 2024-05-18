@@ -1,10 +1,10 @@
 {
   "name": "tks-chat",
   "version": "1.0.0",
-  "main": "src/run.js",
+  "main": "server.js",
   "scripts": {
-    "server": "nodemon src/run.js",
-    "start" : "node src/run.js",
+    "server": "nodemon backend/server.js",
+    "start" : "node backend/server.js",
     "build" : "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "type": "module",
