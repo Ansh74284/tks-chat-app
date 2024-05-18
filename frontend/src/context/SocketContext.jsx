@@ -20,7 +20,7 @@ export const SocketContextProvider = ({ children }) => {
                 socket.close();
             }
 
-            const newSocket = io("http://localhost:5000", {
+            const newSocket = io("https://tks-chat-app.onrender.com/", {
                 query: {
                     userId: authUser._id
                 }
