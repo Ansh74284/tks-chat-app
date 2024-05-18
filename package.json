@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/run.js",
   "scripts": {
-    "server": "nodemon backend/server.js",
+    "server": "nodemon src/run.js",
     "start" : "node src/run.js",
     "build" : "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
